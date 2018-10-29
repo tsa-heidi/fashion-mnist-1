@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 #load te fashion-mnist pre shuffled train data and test data
 (x_train, y_train), (x_test, y_test) = tf.keras.datasets.fashion_mnist.load_data()# Print training set shape - note there are 60,000 training data of image size of 28x28, 60,000 train labels)
 print("x_train shape:", x_train.shape, "y_train shape:", y_train.shape)
-print(x_test)
+
 # Print the number of training and test datasets
 print(x_train.shape[0], 'train set')
 print(x_test.shape[0], 'test set')
@@ -54,12 +54,20 @@ print("Number of test data - " + str(len(x_test)))
 (x_train, x_valid) = x_train[5000:], x_train[:5000]
 (y_train, y_valid) = y_train[5000:], y_train[:5000]
 
-
-#
-#
-#
-#
-#
 # # reshape input data from (28, 28) to (28, 28, 1)
-# w, h = 28, 28
-# x_train = x_train.reshape(x_train.shape[0], w, h, 1)
+w, h = 28, 28
+x_train = x_train.reshape(x_train.shape[0], w, h, 1)
+x_valid = x_valid.reshape(x_valid.shape[0], w, h, 1)
+x_test = x_test.reshape(x_test.shape[0], w, h, 1)
+
+# One-hot encode the labels
+y_train = tf.keras.utils.to_categorical(y_train, 10)
+        #converts a class vector(integer) to binary class matrix
+        # arguments:
+            # y: class vector to be converted into a matrix(integers from 0 to num_classes)
+            # num_classes: total number of classes
+y_valid = tf.keras.utils.to_categorical(y_valid, 10)
+y_test = tf.keras.utils.to_categorical(y_test, 10)
+print("idh;ofjwe,fp" , y_train)
+# print training set shape
+#print("x_train shape:", x_train.shape, "y_train shape:", y_train.shape)
