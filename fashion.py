@@ -30,7 +30,7 @@ label_index = y_train[img_index]
 print ("y = " + str(label_index) + " " +(fashion_mnist_labels[label_index]))
 # # Show one of the images from the training dataset
 plt.imshow(x_train[img_index])
-#plt.show()
+plt.show()
 
 
 #-------------------data normalization--------------------#
@@ -68,6 +68,30 @@ y_train = tf.keras.utils.to_categorical(y_train, 10)
             # num_classes: total number of classes
 y_valid = tf.keras.utils.to_categorical(y_valid, 10)
 y_test = tf.keras.utils.to_categorical(y_test, 10)
-print("idh;ofjwe,fp" , y_train)
+
 # print training set shape
-#print("x_train shape:", x_train.shape, "y_train shape:", y_train.shape)
+print("x_train shape:", x_train.shape, "y_train shape:", y_train.shape)
+
+#print the number of training, validation, and test datasets
+print(x_train.shape[0], 'train set')
+print(x_valid.shape[0], 'validation set')
+print(x_test.shape[0], 'test set')
+
+model = tf.keras.Sequential()
+
+#must define the input shape in the first layer of the neural network
+model.add(tf.keras.layers.Conv2D(filters = 64, kernel_size = 2, padding = "same", activation = "relu", input_shape = (28,28,1)))
+model.add(tf.keras.layers.MaxPooling2D(pool_size = 2))
+model.add(tf.keras.layers.Dropout(0.3))
+
+model.add(tf.keras.layers.Conv2D(filters = 32, kernel_size = 2, padding = "same", activation = "relu"))
+model.add(tf.keras.layers.MaxPooling2D(pool_size = 2))
+model.add(tf.keras.layers.Dropout(0.3))
+
+model.add(tf.keras.layers.Flatten())
+model.add(tf.keras.layers.Dense(256, activation = "relu"))
+model.add(tf.keras.layers.Dropout(0.5))
+model.add(tf.keras.layers.Dense(10, activation = "softmax"))
+
+#take a look at model summary
+model.summary()
